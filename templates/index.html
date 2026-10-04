@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Diabetes Prediction System
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     ANIMATED BACKGROUND
+     ===================================================== -->
+
+<div class="background">
+
+
+    <!-- Ambient glowing orbs -->
+
+    <div class="bg-orb orb-blue"></div>
+
+    <div class="bg-orb orb-purple"></div>
+
+    <div class="bg-orb orb-green"></div>
+
+
+    <!-- Large light rings -->
+
+    <div class="light-ring ring-1"></div>
+
+    <div class="light-ring ring-2"></div>
+
+
+    <!-- Decorative dots -->
+
+    <div class="bg-dot dot-1"></div>
+
+    <div class="bg-dot dot-2"></div>
+
+    <div class="bg-dot dot-3"></div>
+
+    <div class="bg-dot dot-4"></div>
+
+    <div class="bg-dot dot-5"></div>
+
+    <div class="bg-dot dot-6"></div>
+
+
+    <!-- Floating particles -->
+
+    <div class="particle particle-1"></div>
+
+    <div class="particle particle-2"></div>
+
+    <div class="particle particle-3"></div>
+
+    <div class="particle particle-4"></div>
+
+    <div class="particle particle-5"></div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     MAIN CONTAINER
+     ===================================================== -->
+
+<main class="container">
+
+
+    <!-- =================================================
+         HEADER
+         ================================================= -->
+
+    <header class="header">
+
+
+        <div class="medical-icon">
+
+            🩺
+
+        </div>
+
+
+        <div class="header-content">
+
+
+            <h1>
+
+                Diabetes Prediction
+
+            </h1>
+
+
+            <p>
+
+                An intelligent machine learning system
+                for diabetes risk prediction.
+
+            </p>
+
+
+            <div class="model-badge">
+
+                <span class="badge-dot"></span>
+
+                <span>
+                    Machine Learning Powered
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+    </header>
+
+
+
+    <!-- =================================================
+         MAIN CARD
+         ================================================= -->
+
+    <section class="card">
+
+
+        <!-- Card Header -->
+
+        <div class="card-header">
+
+
+            <div>
+
+                <div class="small-heading">
+                    AI HEALTH ANALYSIS
+                </div>
+
+                <h2>
+                    Enter Patient Details
+                </h2>
+
+            </div>
+
+
+            <div class="secure-badge">
+
+                <span>
+                    🔒
+                </span>
+
+                Secure
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             FORM
+             ================================================= -->
+
+        <form
+            id="predictionForm"
+            action="/predict"
+            method="POST"
+        >
+
+
+            <!-- Glucose -->
+
+            <div class="form-group">
+
+
+                <label for="glucose">
+
+                    Glucose Level
+
+                </label>
+
+
+                <div class="input-wrapper">
+
+
+                    <input
+                        type="number"
+                        id="glucose"
+                        name="glucose"
+                        placeholder="Enter glucose level"
+                        step="any"
+                        min="0"
+                        value="{{ glucose if glucose is defined else '' }}"
+                        required
+                    >
+
+
+                    <span class="unit">
+
+                        mg/dL
+
+                    </span>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- Blood Pressure -->
+
+            <div class="form-group">
+
+
+                <label for="blood_pressure">
+
+                    Blood Pressure
+
+                </label>
+
+
+                <div class="input-wrapper">
+
+
+                    <input
+                        type="number"
+                        id="blood_pressure"
+                        name="blood_pressure"
+                        placeholder="Enter blood pressure"
+                        step="any"
+                        min="0"
+                        value="{{ blood_pressure if blood_pressure is defined else '' }}"
+                        required
+                    >
+
+
+                    <span class="unit">
+
+                        mmHg
+
+                    </span>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- Insulin -->
+
+            <div class="form-group">
+
+
+                <label for="insulin">
+
+                    Insulin Level
+
+                </label>
+
+
+                <div class="input-wrapper">
+
+
+                    <input
+                        type="number"
+                        id="insulin"
+                        name="insulin"
+                        placeholder="Enter insulin level"
+                        step="any"
+                        min="0"
+                        value="{{ insulin if insulin is defined else '' }}"
+                        required
+                    >
+
+
+                    <span class="unit">
+
+                        μU/mL
+
+                    </span>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- BMI -->
+
+            <div class="form-group">
+
+
+                <label for="bmi">
+
+                    Body Mass Index (BMI)
+
+                </label>
+
+
+                <div class="input-wrapper">
+
+
+                    <input
+                        type="number"
+                        id="bmi"
+                        name="bmi"
+                        placeholder="Enter BMI"
+                        step="any"
+                        min="0"
+                        value="{{ bmi if bmi is defined else '' }}"
+                        required
+                    >
+
+
+                    <span class="unit">
+
+                        kg/m²
+
+                    </span>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- Age -->
+
+            <div class="form-group">
+
+
+                <label for="age">
+
+                    Age
+
+                </label>
+
+
+                <div class="input-wrapper">
+
+
+                    <input
+                        type="number"
+                        id="age"
+                        name="age"
+                        placeholder="Enter age"
+                        step="1"
+                        min="1"
+                        max="120"
+                        value="{{ age if age is defined else '' }}"
+                        required
+                    >
+
+
+                    <span class="unit">
+
+                        years
+
+                    </span>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PREDICT BUTTON
+                 ================================================= -->
+
+            <button
+                type="submit"
+                class="predict-btn"
+                id="predictBtn"
+            >
+
+
+                <span class="button-text">
+
+                    Predict Diabetes Risk
+
+                </span>
+
+
+                <span class="button-arrow">
+
+                    →
+
+                </span>
+
+
+            </button>
+
+
+        </form>
+
+
+
+        <!-- =================================================
+             LOADING
+             ================================================= -->
+
+        <div
+            class="loading"
+            id="loading"
+        >
+
+
+            <div class="spinner"></div>
+
+
+            <p>
+
+                Analyzing patient data...
+
+            </p>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             ERROR
+             ================================================= -->
+
+        {% if error %}
+
+
+        <div class="error-box">
+
+
+            <span class="error-icon">
+
+                ⚠
+
+            </span>
+
+
+            <span>
+
+                {{ error }}
+
+            </span>
+
+
+        </div>
+
+
+        {% endif %}
+
+
+
+        <!-- =================================================
+             SINGLE COMBINED RESULT
+             ================================================= -->
+
+        {% if final_result %}
+
+
+        <section class="results">
+
+
+            <!-- Result Header -->
+
+            <div class="results-header">
+
+
+                <div class="check-icon">
+
+                    ✓
+
+                </div>
+
+
+                <span class="results-label">
+
+                    Prediction Complete
+
+                </span>
+
+
+            </div>
+
+
+
+            <!-- Final Result -->
+
+            <div
+                class="final-result
+                {% if final_result == 'Diabetes Detected' %}
+                    result-danger
+                {% else %}
+                    result-safe
+                {% endif %}"
+            >
+
+
+                <div class="final-result-label">
+
+                    FINAL PREDICTION
+
+                </div>
+
+
+                <div class="final-result-value">
+
+                    {{ final_result }}
+
+                </div>
+
+
+                <p class="final-result-description">
+
+                    The prediction was generated using
+                    a combined machine learning analysis.
+
+                </p>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PROBABILITY
+                 ================================================= -->
+
+            <div class="probability-section">
+
+
+                <div class="probability-header">
+
+
+                    <span>
+
+                        Prediction Probability
+
+                    </span>
+
+
+                    <strong>
+
+                        {{ combined_probability }}%
+
+                    </strong>
+
+
+                </div>
+
+
+                <div class="progress-container">
+
+
+                    <div
+                        class="progress-bar"
+                        data-value="{{ combined_probability }}"
+                    ></div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 MODELS USED
+                 ================================================= -->
+
+            <div class="model-used">
+
+
+                <div class="model-used-icon">
+
+                    ✦
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Combined ML Analysis
+                    </strong>
+
+                    <span>
+                        Logistic Regression + SVM
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 DISCLAIMER
+                 ================================================= -->
+
+            <div class="disclaimer">
+
+
+                <span class="disclaimer-icon">
+                    ⓘ
+                </span>
+
+
+                <div>
+
+                    <strong>
+                        Educational Use Only
+                    </strong>
+
+                    <p>
+
+                        This system is developed for
+                        educational and demonstration purposes.
+                        The prediction should not be considered
+                        a medical diagnosis or a substitute for
+                        professional medical advice.
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+        {% endif %}
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer>
+
+
+        <div class="footer-line"></div>
+
+
+        <p>
+
+            Diabetes Prediction System
+
+            <span>•</span>
+
+            Machine Learning Project
+
+        </p>
+
+
+    </footer>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+     ===================================================== -->
+
+<script>
+
+
+/* =========================================================
+   FORM SUBMISSION
+   ========================================================= */
+
+const form =
+    document.getElementById(
+        "predictionForm"
+    );
+
+
+const predictBtn =
+    document.getElementById(
+        "predictBtn"
+    );
+
+
+const loading =
+    document.getElementById(
+        "loading"
+    );
+
+
+if (form) {
+
+    form.addEventListener(
+        "submit",
+        function () {
+
+            predictBtn.disabled = true;
+
+
+            const buttonText =
+                predictBtn.querySelector(
+                    ".button-text"
+                );
+
+
+            if (buttonText) {
+
+                buttonText.textContent =
+                    "Analyzing...";
+
+            }
+
+
+            loading.classList.add(
+                "show"
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   INPUT FOCUS
+   ========================================================= */
+
+const inputs =
+    document.querySelectorAll(
+        ".input-wrapper input"
+    );
+
+
+inputs.forEach(
+    function (input) {
+
+
+        input.addEventListener(
+            "focus",
+            function () {
+
+                const group =
+                    this.closest(
+                        ".form-group"
+                    );
+
+
+                if (group) {
+
+                    group.classList.add(
+                        "active"
+                    );
+
+                }
+
+            }
+        );
+
+
+        input.addEventListener(
+            "blur",
+            function () {
+
+                const group =
+                    this.closest(
+                        ".form-group"
+                    );
+
+
+                if (group) {
+
+                    group.classList.remove(
+                        "active"
+                    );
+
+                }
+
+            }
+        );
+
+
+    }
+);
+
+
+
+/* =========================================================
+   PROBABILITY BAR
+   ========================================================= */
+
+window.addEventListener(
+    "load",
+    function () {
+
+
+        const bars =
+            document.querySelectorAll(
+                ".progress-bar"
+            );
+
+
+        bars.forEach(
+            function (bar) {
+
+
+                const value =
+                    bar.getAttribute(
+                        "data-value"
+                    );
+
+
+                if (value) {
+
+
+                    setTimeout(
+                        function () {
+
+                            bar.style.width =
+                                value + "%";
+
+                        },
+                        400
+                    );
+
+
+                }
+
+
+            }
+        );
+
+
+    }
+);
+
+
+
+/* =========================================================
+   MOUSE PARALLAX
+   ========================================================= */
+
+document.addEventListener(
+    "mousemove",
+    function (event) {
+
+
+        const x =
+            (event.clientX /
+                window.innerWidth) - 0.5;
+
+
+        const y =
+            (event.clientY /
+                window.innerHeight) - 0.5;
+
+
+        const orbs =
+            document.querySelectorAll(
+                ".bg-orb"
+            );
+
+
+        orbs.forEach(
+            function (orb, index) {
+
+
+                const strength =
+                    10 + (index * 7);
+
+
+                orb.style.marginLeft =
+                    `${x * strength}px`;
+
+
+                orb.style.marginTop =
+                    `${y * strength}px`;
+
+
+            }
+        );
+
+
+    }
+);
+
+
+
+/* =========================================================
+   RANDOM PARTICLE ANIMATION
+   ========================================================= */
+
+const particles =
+    document.querySelectorAll(
+        ".particle"
+    );
+
+
+particles.forEach(
+    function (particle, index) {
+
+        particle.style.animationDelay =
+            `${index * -1.4}s`;
+
+    }
+);
+
+
+</script>
+
+
+</body>
+
+</html>
